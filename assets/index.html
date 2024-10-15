@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mines Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stats {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script type="module" src="https://unpkg.com/@dfinity/agent@latest/dist/agent.min.js"></script>
+    <script type="module" src="https://unpkg.com/@dfinity/auth-client@latest/dist/auth-client.min.js"></script>
+</head>
+<body>
+    <h1>Mines Game</h1>
+    
+    <div id="login">
+        <button id="loginButton">Login with Internet Identity</button>
+    </div>
+
+    <div id="playerInfo" style="display:none;">
+        <p>Player ID: <span id="playerId"></span></p>
+        <p>Balance: <span id="balance">0.0</span> ICP</p>
+        <p>Current Bet: <span id="currentBet">0.1</span> ICP</p>
+        <p>Level: <span id="level">0</span></p>
+    </div>
+
+    <div class="controls" style="display:none;">
+        <button id="joinGame">Join Game</button>
+        <input type="number" id="betAmount" min="0.1" max="1" step="0.1" value="0.1">
+        <button id="setBet">Set Bet</button>
+        <button id="advanceLevel">Advance Level</button>
+        <button id="withdrawRewards">Withdraw Rewards</button>
+    </div>
+
+    <div class="game-board" id="gameBoard">
+        <!-- Game cells will be dynamically generated here -->
+    </div>
+
+    <div class="stats">
+        <h2>Player Statistics</h2>
+        <pre id="playerStats"></pre>
+    </div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <pre id="leaderboard"></pre>
+    </div>
+
+    <script type="module">
+        import { AuthClient } from "https://unpkg.com/@dfinity/auth-client@latest/dist/auth-client.min.js";
+        import { HttpAgent, Actor } from "https://unpkg.com/@dfinity/agent@latest/dist/agent.min.js";
+
+        let principal;
+        let authClient;
+        let actor;
+        const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+
+        document.getElementById('loginButton').addEventListener('click', async () => {
+            try {
+                authClient = await AuthClient.create();
+                authClient.login({
+                    identityProvider: "https://identity.ic0.app",
+                    onSuccess: async () => {
+                        const identity = await authClient.getIdentity();
+                        principal = identity.getPrincipal().toText();
+                        document.getElementById('playerId').textContent = principal;
+                        document.getElementById('login').style.display = 'none';
+                        document.getElementById('playerInfo').style.display = 'block';
+                        document.querySelector('.controls').style.display = 'flex';
+                        initActor(identity);
+                    },
+                });
+            } catch (error) {
+                console.error('Login failed: ', error);
+            }
+        });
+
+        async function initActor(identity) {
+            const agent = new HttpAgent({ identity });
+            actor = Actor.createActor({
+                canisterId,
+                interfaceFactory: minesGameIdlFactory,
+            }, { agent });
+        }
+
+        document.getElementById('joinGame').addEventListener('click', async () => {
+            if (!actor) return;
+            try {
+                const response = await actor.join_game(principal);
+                console.log(response);
+                // Update UI based on response
+            } catch (error) {
+                console.error('Error joining game:', error);
+            }
+        });
+
+        document.getElementById('setBet').addEventListener('click', async () => {
+            const betAmount = document.getElementById('betAmount').value;
+            if (!actor) return;
+            try {
+                const response = await actor.set_bet(principal, betAmount);
+                console.log(response);
+                // Update UI based on response
+            } catch (error) {
+                console.error('Error setting bet:', error);
+            }
+        });
+
+        document.getElementById('advanceLevel').addEventListener('click', async () => {
+            if (!actor) return;
+            try {
+                const response = await actor.advance_level(principal);
+                console.log(response);
+                // Update UI based on response
+            } catch (error) {
+                console.error('Error advancing level:', error);
+            }
+        });
+
+        document.getElementById('withdrawRewards').addEventListener('click', async () => {
+            if (!actor) return;
+            try {
+                const response = await actor.withdraw_rewards(principal);
+                console.log(response);
+                // Update UI based on response
+            } catch (error) {
+                console.error('Error withdrawing rewards:', error);
+            }
+        });
+
+        // Function to update the game board
+        function updateGameBoard(level) {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            for (let i = 0; i < 25; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.textContent = '?';
+                cell.addEventListener('click', () => {
+                    // Handle cell click (advance level)
+                });
+                gameBoard.appendChild(cell);
+            }
+        }
+
+        // Function to update player statistics
+        function updatePlayerStats() {
+            // Call get_player_statistics and update the playerStats element
+        }
+
+        // Function to update leaderboard
+        function updateLeaderboard() {
+            // Call get_leaderboard and update the leaderboard element
+        }
+
+        // Initial setup
+        updateGameBoard(0);
+        updatePlayerStats();
+        updateLeaderboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "canisters": {
+        "kybra_hello_world": {
+            "type": "kybra",
+            "main": "src/main.py"
+        },
+        "mines_game": {
+            "type": "assets",
+            "source": ["assets"]
+          }
+    }
+}
