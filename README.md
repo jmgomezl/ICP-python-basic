@@ -67,7 +67,6 @@ ICP-python-basic/
 ├── README.md           # Project documentation
 ├── requirements.txt    # Python dependencies
 ├── app.py              # Main script for ICP demonstration
-└── ...                 # Additional files or folders
 
 
 - app.py: Contains the primary script for this project, demonstrating basic Python functionalities.
