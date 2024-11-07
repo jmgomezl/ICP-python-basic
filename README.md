@@ -55,10 +55,9 @@ Run the following command to execute the main Python script:
 
 This script provides a basic demonstration of Python's interaction capabilities with the ICP environment, including some elementary functions and operations.
 To deploy on ICP, ensure your local network is set up and configured, then use:
-
-    ```bash
-    dfx deploy
-    ```
+  ```bash
+  dfx deploy
+  ```
 Refer to the Dfinity documentation for further instructions on deploying Python applications.
 
 **Project Structure**
