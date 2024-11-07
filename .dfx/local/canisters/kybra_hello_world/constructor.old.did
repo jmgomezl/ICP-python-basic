@@ -1,9 +1,0 @@
-service : {
-  advance_level : (principal) -> (text);
-  get_leaderboard : () -> (text) query;
-  get_player_rewards : (principal) -> (opt vec text) query;
-  get_player_statistics : (principal) -> (text) query;
-  join_game : (principal) -> (text);
-  set_bet : (principal, nat) -> (text);
-  withdraw_rewards : (principal) -> (text);
-}
