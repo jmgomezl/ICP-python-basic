@@ -9,7 +9,6 @@ Welcome to the **ICP Python Basic** project! This repository demonstrates fundam
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
