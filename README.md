@@ -62,11 +62,11 @@ Refer to the Dfinity documentation for further instructions on deploying Python 
 
 ## Project Structure
 
-- ICP-python-basic/
-  - README.md: Project documentation
-  - requirements.txt: Python dependencies
-  - app.py: Main script for ICP demonstration
-  - ... : Additional files or folders
+ICP-python-basic/
+├── README.md          # Project documentation
+├── requirements.txt   # Python dependencies
+├── app.py             # Main script for ICP demonstration
+└── ...                # Additional files or folders
 
 - app.py: Contains the primary script for this project, demonstrating basic Python functionalities.
 - requirements.txt: Lists required packages for running the project.
