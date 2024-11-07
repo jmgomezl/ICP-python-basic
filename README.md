@@ -73,8 +73,9 @@ Refer to the Dfinity documentation for further instructions on deploying Python 
 - app.py: Contains the primary script for this project, demonstrating basic Python functionalities.
 - requirements.txt: Lists required packages for running the project.
 
-**Contributing**
+## Contributing
 Contributions are welcome! Feel free to submit a pull request or open an issue for any bugs, improvements, or new features.
-**License**
+
+## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 Enjoy learning and building with ICP Python Basic!
