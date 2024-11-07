@@ -60,14 +60,13 @@ To deploy on ICP, ensure your local network is set up and configured, then use:
   ```
 Refer to the Dfinity documentation for further instructions on deploying Python applications.
 
-**Project Structure**
-    ```bash
-    ICP-python-basic/
-    ├── README.md          # Project documentation
-    ├── requirements.txt   # Python dependencies
-    ├── app.py            # Main script for ICP demonstration
-    └── ...
-    ```
+## Project Structure
+
+ICP-python-basic/
+├── README.md          # Project documentation
+├── requirements.txt   # Python dependencies
+├── app.py             # Main script for ICP demonstration
+└── ...
 
 - app.py: Contains the primary script for this project, demonstrating basic Python functionalities.
 - requirements.txt: Lists required packages for running the project.
